@@ -10,12 +10,33 @@ class App extends React.Component {
   // design `App` to be the parent component of your application.
   // this component is going to take care of state, and any change handlers you need to work with your state
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       toDoTasks: [],
       completedTasks: []
     };
+  }
+  /* Lifecycle Methods */
+  componentDidMount() {
+    const toDoTasks = JSON.parse(localStorage.getItem("to_do_tasks") || "[]");
+    const completedTasks = JSON.parse(
+      localStorage.getItem("completed_tasks") || "[]"
+    );
+    this.setState({ toDoTasks, completedTasks });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.toDoTasks !== prevState.toDoTasks) {
+      localStorage.setItem("to_do_tasks", JSON.stringify(this.state.toDoTasks));
+    }
+
+    if (this.state.completedTasks !== prevState.completedTasks) {
+      localStorage.setItem(
+        "completed_tasks",
+        JSON.stringify(this.state.completedTasks)
+      );
+    }
   }
 
   addToDoTask = task => {
