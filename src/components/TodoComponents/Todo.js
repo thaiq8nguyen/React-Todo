@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Grid, Icon, List, Checkbox } from "semantic-ui-react";
+import { Button, Header, Grid, Icon, Checkbox } from "semantic-ui-react";
 
 export default class Todo extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ export default class Todo extends Component {
 
   render() {
     return (
-      <List.Item>
+      <>
         <Grid>
           <Grid.Row columns={2} verticalAlign="middle">
             <Grid.Column width={2}>
@@ -19,9 +19,7 @@ export default class Todo extends Component {
               />
             </Grid.Column>
             <Grid.Column width={11}>
-              <List.Content>
-                <List.Header>{this.props.taskName}</List.Header>
-              </List.Content>
+              <Header as="h5">{this.props.taskName}</Header>
             </Grid.Column>
             <Grid.Column width={2}>
               <Button
@@ -36,7 +34,7 @@ export default class Todo extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </List.Item>
+      </>
     );
   }
 }

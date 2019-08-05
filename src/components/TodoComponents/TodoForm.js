@@ -53,6 +53,7 @@ export default class TodoForm extends Component {
             <Form.Field>
               <label htmlFor="taskName">Task</label>
               <input
+                className={styles.taskInput}
                 name="taskName"
                 placeholder="Name"
                 onChange={this.handleInputChange}
@@ -60,7 +61,7 @@ export default class TodoForm extends Component {
               ></input>
             </Form.Field>
             {this.state.errorMessage && (
-              <Message content={this.state.errorMessage} />
+              <Message negative content={this.state.errorMessage} />
             )}
             <Button type="submit" className={styles.createTaskButton}>
               Create

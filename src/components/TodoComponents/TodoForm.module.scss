@@ -12,6 +12,9 @@
 
   .toDoFormContent {
     .toDoForm {
+      .taskInput {
+        font-size: 16px;
+      }
       .createTaskButton {
         background-color: $deepRed !important;
         color: $lightFontColor;

@@ -1,28 +1,27 @@
 import React from "react";
 import { Grid, Message } from "semantic-ui-react";
+
+import loadTasks from "./utils/localStorageAPI";
 import AddTask from "./components/TodoComponents/TodoForm";
-import Tasks from "./components/TodoComponents/TodoList";
 import CompletedTasks from "./components/TodoComponents/CompletedList";
+import SearchPanel from "./components/Search/Search";
+import Tasks from "./components/TodoComponents/TodoList";
+
 import Navbar from "./components/Navbar/Navbar";
 import styles from "./App.module.scss";
 class App extends React.Component {
-  // you will need a place to store your state in this component.
-  // design `App` to be the parent component of your application.
-  // this component is going to take care of state, and any change handlers you need to work with your state
-
   constructor(props) {
     super(props);
     this.state = {
-      toDoTasks: [],
-      completedTasks: []
+      searchPanel: false,
+      completedTasks: [],
+      toDoTasks: []
     };
   }
   /* Lifecycle Methods */
   componentDidMount() {
-    const toDoTasks = JSON.parse(localStorage.getItem("to_do_tasks") || "[]");
-    const completedTasks = JSON.parse(
-      localStorage.getItem("completed_tasks") || "[]"
-    );
+    const { toDoTasks, completedTasks } = loadTasks();
+
     this.setState({ toDoTasks, completedTasks });
   }
 
@@ -75,6 +74,11 @@ class App extends React.Component {
     this.setState({ toDoTasks: newToDoTasks });
   };
 
+  handleSearchPanel = () => {
+    console.log("search panel");
+    this.setState({ searchPanel: true });
+  };
+
   handleRemoveAllCompletedTasks = () => {
     this.setState({ completedTasks: [] });
   };
@@ -115,7 +119,8 @@ class App extends React.Component {
     }
     return (
       <div>
-        <Navbar />
+        {this.state.searchPanel && <SearchPanel />}
+        <Navbar showSearchPanel={this.handleSearchPanel} />
         <Grid stackable columns={2} padded={"horizontally"}>
           <Grid.Row>
             <Grid.Column computer={6}>
