@@ -1,3 +1,7 @@
+# Screenshots
+
+![App screenshot in mobile layout](/screenshots/20190805_App.png)
+
 # React-Todo
 
 - At this point you have become familiar with the DOM and have built out User Interfaces using HTML and CSS and some JavaScript using custom components. And you've even had some practice working with React at a basic level. Now we're going to start adding some functionality to that work-flow. It's one thing to be able to build UI components using react, but what about the interactivity of those components?
@@ -21,12 +25,12 @@
 ```js
 [
   {
-    task: 'Organize Garage',
+    task: "Organize Garage",
     id: 1528817077286,
     completed: false
   },
   {
-    task: 'Bake Cookies',
+    task: "Bake Cookies",
     id: 1528817084358,
     completed: false
   }
