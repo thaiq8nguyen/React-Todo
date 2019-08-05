@@ -1,0 +1,21 @@
+@import "../../assets/styles/shared.module.scss";
+
+.toDoFormCard {
+  .cardHeaderContent {
+    font-family: $headingFont !important;
+    background-color: $cardHeaderColor !important;
+
+    .cardHeader {
+      color: $lightFontColor !important;
+    }
+  }
+
+  .toDoFormContent {
+    .toDoForm {
+      .createTaskButton {
+        background-color: $deepRed !important;
+        color: $lightFontColor;
+      }
+    }
+  }
+}
