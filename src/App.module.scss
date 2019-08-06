@@ -1,0 +1,6 @@
+@import "./assets/styles/shared.module.scss";
+
+.messageContainer {
+  text-align: center;
+  background-color: $messageBackgroundColor !important;
+}
