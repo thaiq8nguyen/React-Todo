@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Message } from "semantic-ui-react";
+import { Card, Grid, Image, Message, Transition } from "semantic-ui-react";
 
 import loadTasks from "./utils/localStorageAPI";
 import AddTask from "./components/TodoComponents/TodoForm";
@@ -15,7 +15,8 @@ class App extends React.Component {
     this.state = {
       searchPanel: false,
       completedTasks: [],
-      toDoTasks: []
+      toDoTasks: [],
+      transition: { animation: "fade", duration: 400 }
     };
   }
   /* Lifecycle Methods */
@@ -75,8 +76,7 @@ class App extends React.Component {
   };
 
   handleSearchPanel = () => {
-    console.log("search panel");
-    this.setState({ searchPanel: true });
+    this.setState(prevState => ({ searchPanel: !prevState.searchPanel }));
   };
 
   handleRemoveAllCompletedTasks = () => {
@@ -119,25 +119,34 @@ class App extends React.Component {
     }
     return (
       <div>
-        {this.state.searchPanel && <SearchPanel />}
         <Navbar showSearchPanel={this.handleSearchPanel} />
-        <Grid stackable columns={2} padded={"horizontally"}>
-          <Grid.Row>
-            <Grid.Column computer={6}>
-              <AddTask newTask={this.addToDoTask} />
-            </Grid.Column>
-            <Grid.Column computer={6}>
-              {displayToDo}
-              {this.state.completedTasks.length > 0 && (
-                <CompletedTasks
-                  completedTasks={this.state.completedTasks}
-                  undoCompletedTask={this.handleUndoCompletedTask}
-                  removeAllCompletedTasks={this.handleRemoveAllCompletedTasks}
-                />
-              )}
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+
+        <Transition.Group animation="fade down" duration="400">
+          {this.state.searchPanel && <SearchPanel />}
+        </Transition.Group>
+        <Transition.Group animation="fade" duration="400">
+          {!this.state.searchPanel && (
+            <Grid stackable columns={2} padded={"horizontally"}>
+              <Grid.Row>
+                <Grid.Column computer={6}>
+                  <AddTask newTask={this.addToDoTask} />
+                </Grid.Column>
+                <Grid.Column computer={6}>
+                  {displayToDo}
+                  {this.state.completedTasks.length > 0 && (
+                    <CompletedTasks
+                      completedTasks={this.state.completedTasks}
+                      undoCompletedTask={this.handleUndoCompletedTask}
+                      removeAllCompletedTasks={
+                        this.handleRemoveAllCompletedTasks
+                      }
+                    />
+                  )}
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          )}
+        </Transition.Group>
       </div>
     );
   }
